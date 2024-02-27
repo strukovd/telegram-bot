@@ -7,7 +7,7 @@ async function bootstrap() {
 	const app = await NestFactory.create(AppModule);
 
 	const config = await app.get(ConfigService);
-	const port = config.get("PORT");
+	const port = config.get<string>("http.port");
 
 	app.enableVersioning({
 		type: VersioningType.URI,
