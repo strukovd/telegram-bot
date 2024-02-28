@@ -16,7 +16,7 @@ const tgSession = new LocalSession({ database: `tg-session.json` });
 			load: [
 				() => {
 					return yaml.load(
-						readFileSync(join(__dirname, `../storage/config.yaml`), 'utf8'),
+						readFileSync(join(__dirname, `../storage/configs/config.yaml`), 'utf8'),
 					) as Record<string, any>;
 				}
 			]

@@ -19,6 +19,8 @@ GIT_USER=$(git config user.name)
 sed -i "s@\"assigneer\".*@\"assigneer\": \"$GIT_USER\",@" package.json
 
 # Билдим и пушим
+npm run build
+
 echo "Build and push version: ${SERVICE_NAME}:${CUR_VERSION}"
 docker build -t "${SERVICE_NAME}:${CUR_VERSION}" \
 	--label "git_user=$GIT_USER" \

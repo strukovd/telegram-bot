@@ -3,5 +3,5 @@ http:
 
 telegram:
   token: 6732862462:AAE12ZWOycYaurvwMeEBRcLuzQAqgCFATuY
-  chats: [937827864]
+  chats: [ 937827864, 1355816588, ]
   template: 'Поступила новая заявка клиента: $__FORM_DATA'
