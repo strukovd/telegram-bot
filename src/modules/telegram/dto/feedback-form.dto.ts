@@ -1,5 +1,5 @@
 export class FeedbackFormDto {
 	name: string;
-	contacts: string;
-	description: string;
+	email: string;
+	comment: string;
 }

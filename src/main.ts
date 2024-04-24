@@ -4,7 +4,9 @@ import { ConfigService } from '@nestjs/config';
 import { VersioningType } from '@nestjs/common';
 
 async function bootstrap() {
-	const app = await NestFactory.create(AppModule);
+	const app = await NestFactory.create(AppModule, {
+		cors: true
+	});
 
 	const config = await app.get(ConfigService);
 	const port = config.get<string>("http.port");

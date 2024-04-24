@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SERVICE_NAME=telegram-bot
-REMOTE_ADDRESS='212.113.123.59'
+REMOTE_ADDRESS='91.200.84.180'
 REMOTE_USER=root
 
 # Up-аем версию

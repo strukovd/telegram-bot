@@ -14,21 +14,38 @@ export class TelegramService {
 
 	public async sendForm(body: FeedbackFormDto): Promise<void> {
 		const chats = this.configService.get<number[] | string[]>('telegram.chats');
-		const formData = this.wrapMdCode( JSON.stringify(body, null, 2), `JSON` );
-		const message = this.configService.get<string>('telegram.template').replace(`$__FORM_DATA`, formData);
+		let { name, email, comment } = body;
+		if( body.name ) {
+			name = `<strong>Отправитель:</strong> ${name}`;
+		}
+		if( body.email ) {
+			email = `<strong>Email:</strong> ${email}`;
+		}
+		if( body.comment ) {
+			comment = `<strong>Комментарий:</strong> ${comment}`;
+		}
 
-		for (const chatIdOrName of chats) {
-			await this.sendMessageToUser(chatIdOrName, message);
+		const message = [ `\n`, name, email, comment ].filter(item => item).join(`\n`);
+		if(message !== "") {
+			const messageWithTemplate = this.configService.get<string>('telegram.template')
+				.replace(`$__FORM_DATA`, message);
+
+			for (const chatIdOrName of chats) {
+				await this.sendMessageToUser(chatIdOrName, messageWithTemplate);
+			}
 		}
 	}
 
 
-	private async sendMessageToUser(userIdOrName: number | string, message: string): Promise<void> {
+	private async sendMessageToUser(
+		userIdOrName: number | string,
+		message: string
+	): Promise<void> {
 		try {
 			if( typeof userIdOrName === `string` && /^[^@]/.test(userIdOrName) ) {
 				userIdOrName = `@${userIdOrName}`;
 			}
-			await this.bot.telegram.sendMessage(userIdOrName, message, { parse_mode: 'MarkdownV2' });
+			await this.bot.telegram.sendMessage(userIdOrName, message, { parse_mode: 'HTML' });
 		} catch (error) {
 			console.error('Ошибка при отправки сообщения:', error);
 		}
