@@ -2,6 +2,6 @@ http:
   port: 7705
 
 telegram:
-  token: 6732862462:AAE12ZWOycYaurvwMeEBRcLuzQAqgCFATuY
+  token: <TOKEN>
   chats: [ 937827864, 1355816588, ]
   template: 'Поступила новая заявка клиента: $__FORM_DATA'
